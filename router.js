@@ -60,11 +60,18 @@ define(function() {
             req.contentType = "application/json";
             req.data = JSON.stringify(req.data);
             if(typeof(callback) == 'function') {
-                req.success = function(response) {
+                req.success = function(response,status) {
                     callback(response);
                 };
-                req.error = function() {
-                    callback({'error': true});
+                req.error = function(err,status) {
+                    if(typeof(err.responseText) != 'undefined') {
+                        var response = JSON.parse(err.responseText);
+                        if('redirect' in response) {
+                            window.location = response.redirect;
+                        }
+                    } else {
+                        console.error(err);
+                    }
                 };
             }
 
