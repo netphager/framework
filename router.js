@@ -65,10 +65,16 @@ define(function() {
                 };
                 req.error = function(err,status) {
                     if(typeof(err.responseText) != 'undefined') {
-                        var response = JSON.parse(err.responseText);
+                        var response = {};
+                        try {
+                            response = JSON.parse(err.responseText);                            
+                        }
+                        catch(err) {}
+                        
                         if('redirect' in response) {
                             window.location = response.redirect;
                         }
+                        
                     } else {
                         console.error(err);
                     }
