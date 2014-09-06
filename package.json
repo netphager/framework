@@ -1,0 +1,30 @@
+{
+  "name": "node",
+  "version": "1.0.0",
+  "description": "node ====",
+  "main": "app.js",
+  "dependencies": {
+    "body-parser": "^1.6.6",
+    "events": "^1.0.2",
+    "express": "^4.8.6",
+    "express-session": "^1.7.6",
+    "mongodb": "^1.4.9",
+    "mongoose": "^3.8.15",
+    "path": "^0.4.9",
+    "socket.io": "^1.0.6"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/netphager/node.git"
+  },
+  "author": "netphager",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/netphager/node/issues"
+  },
+  "homepage": "https://github.com/netphager/node"
+}
