@@ -39,7 +39,11 @@ define(function() {
                         that.makeRequest({
                             type:'post',
                             url:'/loadTemplate',
-                            data: {"templateName":template,"controllerName":controllerName}
+                            data: {
+                                "templateName":template,
+                                "controllerName":controllerName,
+                                "method": method
+                            }
                         },function(template) {
                             $('[main-template]').html(template);
                             controller[method](params);
