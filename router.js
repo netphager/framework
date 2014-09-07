@@ -1,6 +1,10 @@
 define(function() {
     return new (function() {
         var that = this;
+        this.controllerName = null;
+        this.templateName = null;
+        this.method = null;
+
         this.init = function() {
 
             executeMethod();
@@ -32,10 +36,15 @@ define(function() {
                     params.error = 'Invalid parameters';
                 }
 
+                var template = method;
+                
+                this.controllerName = controllerName;
+                this.templateName = template;
+                this.method = method;
+
                 require([controllerName],function(controller) {
                     if(controller.noTemplate.indexOf(method) == -1) {
                         // load template
-                        var template = method;
                         that.makeRequest({
                             type:'post',
                             url:'/loadTemplate',
