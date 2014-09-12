@@ -37,7 +37,7 @@ define(function() {
                 }
 
                 var template = method;
-                
+
                 this.controllerName = controllerName;
                 this.templateName = template;
                 this.method = method;
@@ -54,8 +54,10 @@ define(function() {
                                 "method": method
                             }
                         },function(template) {
-                            $('[main-template]').html(template);
-                            controller[method](params);
+                            if(controller.noReplaceTemplate.indexOf(method) == -1) {
+                                $('[main-template]').html(template);
+                            }
+                            controller[method](params,template);
                         });
                     } else {
                         controller[method](params);
@@ -80,14 +82,14 @@ define(function() {
                     if(typeof(err.responseText) != 'undefined') {
                         var response = {};
                         try {
-                            response = JSON.parse(err.responseText);                            
+                            response = JSON.parse(err.responseText);
                         }
                         catch(err) {}
-                        
+
                         if('redirect' in response) {
                             window.location = response.redirect;
                         }
-                        
+
                     } else {
                         console.error(err);
                     }
