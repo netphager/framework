@@ -54,6 +54,9 @@ define(function() {
                                 "method": method
                             }
                         },function(template) {
+                            if(typeof(controller.noReplaceTemplate) == 'undefined') {
+                                controller.noReplaceTemplate = [];
+                            }
                             if(controller.noReplaceTemplate.indexOf(method) == -1) {
                                 $('[main-template]').html(template);
                             }
