@@ -13,7 +13,7 @@ define(function() {
                     "templateName": 'dialog'
                 }
             },function(dialogTemplate) {
-                $('body').append(dialogTemplate);
+                $('body').prepend(dialogTemplate);
                 $('#dialog').html(template);
             });
         };
