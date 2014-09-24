@@ -36,6 +36,24 @@ module.exports = new (function(url){
         this.template = templateName;
         return template;
     };
+
+    this.loadLibTemplate = function(templateName) {
+        var templatesPath = config.libDir+'templates/';
+
+        var templatePath = templatesPath+templateName+'.html';
+
+        // load templates
+        try {
+            template = fs.readFileSync(templatePath,'utf-8');
+        } catch (e) {
+            debug.error('File ' + templatePath + ' not found',404);
+            template = false;
+        }
+
+        this.template = templateName;
+        return template;
+    };
+
     this.loadController = function(controllerName) {
         var controller;
         try {
