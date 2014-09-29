@@ -1,8 +1,10 @@
-define(function() {
+define(function(require) {
     return new (function() {
         var that = this;
         var router = require('helper/router');
-        this.draggable = true;
+        this.draggable = false;
+        // var Draggable = require ('helper/node_modules/draggable/src/draggable');
+
 
         this.init = function() {};
 
@@ -21,9 +23,10 @@ define(function() {
                 }
                 that.close(templateName);
             });
-
-            $('.dialog.'+templateName).on('mousedown',function() {that.startDrag(templateName)});
-            $('.dialog.'+templateName).on('mouseup',function() {that.stopDrag(templateName)});
+            if(that.draggable) {
+                $('.dialog.'+templateName).on('mousedown',function() {that.startDrag(templateName)});
+                $('.dialog.'+templateName).on('mouseup',function() {that.stopDrag(templateName)});
+            }
 
         };
 

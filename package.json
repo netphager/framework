@@ -16,7 +16,8 @@
     "requirejs-handlebars": "~0.1.1",
     "requirejs-text": "~2.0.12",
     "handlebars-helper-css": "~0.1.0",
-    "jquery": "~2.1.1"
+    "jquery": "~2.1.1",
+    "draggable": "~2.0.1"
   },
   "devDependencies": {},
   "scripts": {
