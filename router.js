@@ -5,10 +5,14 @@ define(function() {
         this.templateName = null;
         this.method = null;
         this.templates = {};
+        that.config = {};
 
         this.init = function() {
-
-            executeMethod();
+            this.loadConfig(function() {
+                that.loadDialogTemplate(function() {
+                    executeMethod();
+                });
+            });
 
             function executeMethod() {
                 var hashArray = window.location.hash.split('/').splice(1)
@@ -59,23 +63,20 @@ define(function() {
                            var templatePath = templatesPath+templateName+'.hdb';
                            // loading template
                            require(['hb!'+templatePath], function(template) {
-                                if(typeof(controller.noReplaceTemplate) == 'undefined') {
+                                /*if(typeof(controller.noReplaceTemplate) == 'undefined') {
                                     controller.noReplaceTemplate = [];
-                                }
-                                if(controller.noReplaceTemplate.indexOf(method) == -1) {
+                                }*/
+                                // if(controller.noReplaceTemplate.indexOf(method) == -1) {
                                     that.templates[templateName] = template;
-                                }
+                                // }
                                 controller[method](params,template);
                            });
 
                        } else {
                            controller[method](params);
                        }
-
-
                     });
                 });
-
             }
             window.addEventListener("hashchange", function(e) {
                 executeMethod();
@@ -83,8 +84,30 @@ define(function() {
 
         };
 
-        this.render = function(templateName,params) {
-            $('[main-template]').html(that.templates[templateName](params));
+        this.loadConfig = function(callback) {
+            that.makeRequest({
+                type: 'get',
+                url: '/config'
+            },function(config) {
+                that.config = JSON.parse(config);
+                if(typeof(callback) == 'function') {
+                    callback();
+                }
+            });
+        };
+
+        this.loadDialogTemplate = function(callback) {
+            require(['hb!/templates/dialog.hdb'], function(template) {
+                that.templates['dialog'] = template
+                if(typeof(callback) == 'function') {
+                    callback();
+                }
+            });
+        };
+
+        this.render = function(templateName,params,replace) {
+            var replaceDiv = replace ? replace : '[main-template]';
+            $(replaceDiv).html(that.templates[templateName](params));
         };
 
         this.makeRequest =  function(req,callback) {

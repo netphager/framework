@@ -4,18 +4,10 @@ define(function() {
         var router = require('helper/router');
         this.init = function() {};
 
-        this.open = function(template) {
+        this.open = function(templateName,params) {
             // load dialog template
-            router.makeRequest({
-                type:'post',
-                url:'/loadLibTemplate',
-                data: {
-                    "templateName": 'dialog'
-                }
-            },function(dialogTemplate) {
-                $('body').prepend(dialogTemplate);
-                $('#dialog').html(template);
-            });
+            router.render('dialog',{},'[dialog-template]');
+            router.render('add',params,'#dialog');
         };
     });
 });

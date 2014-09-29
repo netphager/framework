@@ -11,7 +11,10 @@
     "mongodb": "^1.4.9",
     "mongoose": "^3.8.15",
     "path": "^0.4.9",
-    "socket.io": "^1.0.6"
+    "socket.io": "^1.0.6",
+    "handlebars": "~2.0.0",
+    "requirejs-handlebars": "~0.1.1",
+    "requirejs-text": "~2.0.12"
   },
   "devDependencies": {},
   "scripts": {
