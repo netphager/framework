@@ -14,7 +14,8 @@
     "socket.io": "^1.0.6",
     "handlebars": "~2.0.0",
     "requirejs-handlebars": "~0.1.1",
-    "requirejs-text": "~2.0.12"
+    "requirejs-text": "~2.0.12",
+    "handlebars-helper-css": "~0.1.0"
   },
   "devDependencies": {},
   "scripts": {

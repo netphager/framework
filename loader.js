@@ -5,6 +5,18 @@ module.exports = new (function(url){
     var that = this;
     this.controller = null;
     this.template = null;
+    this.loadController = function(controllerName) {
+        var controller;
+        try {
+            controller = require(config.appDir+controllerName);
+        } catch(e) {
+            debug.error('Module ' + config.appDir+controllerName + ' not found',404);
+            controller = false;
+        }
+
+        this.controller = controllerName;
+        return controller;
+    };
 
     this.loadLayout = function() {
         var layoutPath = config.appDir+'layout.html';
@@ -18,7 +30,7 @@ module.exports = new (function(url){
         }
 
     };
-    this.loadTemplate = function(templateName,controllerName) {
+/*    this.loadTemplate = function(templateName,controllerName) {
         var templatesPath = config.templatesDir;
         if(templatesPath.indexOf('controller') != -1) {
             templatesPath = config.templatesDir.replace('{controller}',controllerName);
@@ -52,20 +64,8 @@ module.exports = new (function(url){
 
         this.template = templateName;
         return template;
-    };
+    };*/
 
-    this.loadController = function(controllerName) {
-        var controller;
-        try {
-            controller = require(config.appDir+controllerName);
-        } catch(e) {
-            debug.error('Module ' + config.appDir+controllerName + ' not found',404);
-            controller = false;
-        }
-
-        this.controller = controllerName;
-        return controller;
-    };
 
 
 });

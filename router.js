@@ -63,12 +63,7 @@ define(function() {
                            var templatePath = templatesPath+templateName+'.hdb';
                            // loading template
                            require(['hb!'+templatePath], function(template) {
-                                /*if(typeof(controller.noReplaceTemplate) == 'undefined') {
-                                    controller.noReplaceTemplate = [];
-                                }*/
-                                // if(controller.noReplaceTemplate.indexOf(method) == -1) {
-                                    that.templates[templateName] = template;
-                                // }
+                                that.templates[templateName] = template;
                                 controller[method](params,template);
                            });
 
@@ -97,7 +92,7 @@ define(function() {
         };
 
         this.loadDialogTemplate = function(callback) {
-            require(['hb!/templates/dialog.hdb'], function(template) {
+            require(['hb!/helper/templates/dialog.hdb'], function(template) {
                 that.templates['dialog'] = template
                 if(typeof(callback) == 'function') {
                     callback();
@@ -105,9 +100,8 @@ define(function() {
             });
         };
 
-        this.render = function(templateName,params,replace) {
-            var replaceDiv = replace ? replace : '[main-template]';
-            $(replaceDiv).html(that.templates[templateName](params));
+        this.render = function(templateName,params) {
+            return that.templates[templateName](params);
         };
 
         this.makeRequest =  function(req,callback) {

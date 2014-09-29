@@ -6,8 +6,18 @@ define(function() {
 
         this.open = function(templateName,params) {
             // load dialog template
-            router.render('dialog',{},'[dialog-template]');
-            router.render('add',params,'#dialog');
+            var dialogHtml = router.render('dialog');
+            dialogHtml = dialogHtml.replace('class="dialog"','class="dialog '+templateName+'"');
+            $('[dialog-template]').after(dialogHtml);
+            $('.dialog.'+templateName+' .content').html(router.render(templateName,params));
+            $('.dialog.'+templateName+' .close').click(function() {that.close(templateName)});
         };
+
+        this.close = function(dialogName) {
+            var $dialog = $('.dialog.'+dialogName);
+            $dialog.remove();
+            window.location = '/app/#/article/home';
+        };
+
     });
 });
