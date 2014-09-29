@@ -4,6 +4,7 @@ define(function() {
         this.controllerName = null;
         this.templateName = null;
         this.method = null;
+        this.templates = {};
 
         this.init = function() {
 
@@ -41,37 +42,49 @@ define(function() {
                 this.controllerName = controllerName;
                 this.templateName = template;
                 this.method = method;
+                // get config
+                that.makeRequest({
+                    type: 'get',
+                    url: '/config'
+                },function(config) {
+                    config = JSON.parse(config);
+                    // loading controller
+                    require([controllerName],function(controller) {
+                       if(controller.noTemplate.indexOf(method) == -1) {
+                           var templatesPath = config.templatesDir;
 
-                require([controllerName],function(controller) {
-                    if(controller.noTemplate.indexOf(method) == -1) {
-                        // load template
-                        that.makeRequest({
-                            type:'post',
-                            url:'/loadTemplate',
-                            data: {
-                                "templateName":template,
-                                "controllerName":controllerName,
-                                "method": method
-                            }
-                        },function(template) {
-                            if(typeof(controller.noReplaceTemplate) == 'undefined') {
-                                controller.noReplaceTemplate = [];
-                            }
-                            if(controller.noReplaceTemplate.indexOf(method) == -1) {
-                                $('[main-template]').html(template);
-                            }
-                            controller[method](params,template);
-                        });
-                    } else {
-                        controller[method](params);
-                    }
+                           if(templatesPath.indexOf('controller') != -1) {
+                               templatesPath = config.templatesDir.replace('{controller}',controllerName);
+                           }
+                           var templatePath = templatesPath+templateName+'.hdb';
+                           // loading template
+                           require(['hb!'+templatePath], function(template) {
+                                if(typeof(controller.noReplaceTemplate) == 'undefined') {
+                                    controller.noReplaceTemplate = [];
+                                }
+                                if(controller.noReplaceTemplate.indexOf(method) == -1) {
+                                    that.templates[templateName] = template;
+                                }
+                                controller[method](params,template);
+                           });
+
+                       } else {
+                           controller[method](params);
+                       }
+
+
+                    });
                 });
-            }
 
+            }
             window.addEventListener("hashchange", function(e) {
                 executeMethod();
             }, false);
 
+        };
+
+        this.render = function(templateName,params) {
+            $('[main-template]').html(that.templates[templateName](params));
         };
 
         this.makeRequest =  function(req,callback) {
