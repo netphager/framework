@@ -30,42 +30,5 @@ module.exports = new (function(url){
         }
 
     };
-/*    this.loadTemplate = function(templateName,controllerName) {
-        var templatesPath = config.templatesDir;
-        if(templatesPath.indexOf('controller') != -1) {
-            templatesPath = config.templatesDir.replace('{controller}',controllerName);
-        }
-        var templatePath = templatesPath+templateName+'.html';
-
-        // load templates
-        try {
-            template = fs.readFileSync(templatePath,'utf-8');
-        } catch (e) {
-            debug.error('File ' + templatePath + ' not found',404);
-            template = false;
-        }
-
-        this.template = templateName;
-        return template;
-    };
-
-    this.loadLibTemplate = function(templateName) {
-        var templatesPath = config.libDir+'templates/';
-
-        var templatePath = templatesPath+templateName+'.html';
-
-        // load templates
-        try {
-            template = fs.readFileSync(templatePath,'utf-8');
-        } catch (e) {
-            debug.error('File ' + templatePath + ' not found',404);
-            template = false;
-        }
-
-        this.template = templateName;
-        return template;
-    };*/
-
-
 
 });

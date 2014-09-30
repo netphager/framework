@@ -9,7 +9,6 @@ define(['helper/templatesHelper'],function(templatesHelper) {
 
         this.init = function() {
             this.loadConfig(function() {
-                // load dialog default template
                 executeMethod();
             });
 
@@ -86,8 +85,6 @@ define(['helper/templatesHelper'],function(templatesHelper) {
             });
         };
 
-
-
         this.makeRequest =  function(req,callback) {
             req.contentType = "application/json";
             req.data = JSON.stringify(req.data);
@@ -112,11 +109,8 @@ define(['helper/templatesHelper'],function(templatesHelper) {
                     }
                 };
             }
-
-            var promise = $.ajax(req);
-
             if(typeof(callback) != 'function') {
-                return promise;
+                return  $.ajax(req);
             }
         };
     })
