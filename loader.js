@@ -4,7 +4,7 @@ var path = require('path');
 module.exports = new (function(url){
     var that = this;
     this.controller = null;
-    this.template = null;
+    // this.template = null;
     this.loadController = function(controllerName) {
         var controller;
         try {
