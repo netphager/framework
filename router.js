@@ -5,7 +5,8 @@ define(function() {
         this.templateName = null;
         this.method = null;
         this.templates = {};
-        that.config = {};
+        this.config = {};
+
 
         this.init = function() {
             this.loadConfig(function() {
