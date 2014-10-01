@@ -109,8 +109,9 @@ define(['helper/templatesHelper'],function(templatesHelper) {
                     }
                 };
             }
+            var promise = $.ajax(req);
             if(typeof(callback) != 'function') {
-                return  $.ajax(req);
+                return promise;
             }
         };
     })
