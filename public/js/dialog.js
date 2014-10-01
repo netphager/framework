@@ -1,8 +1,8 @@
 define(function(require) {
     return new (function() {
         var that = this;
-        var router = require('helper/router');
-        var templatesHelper = require('helper/templatesHelper');
+        var router = require('helper/js/router');
+        var templatesHelper = require('helper/js/templatesHelper');
         this.draggable = false;
         // var Draggable = require ('helper/node_modules/draggable/src/draggable');
 
@@ -30,6 +30,7 @@ define(function(require) {
                 // render dialog template
                 $('[dialog-template]').after(templatesHelper.render('dialog').replace('class="dialog"','class="dialog '+templateName+'"'));
                 $('.dialog.'+templateName+' .content').html(templatesHelper.render(templateName,params));
+                $('.dialog.'+templateName).trigger('dialogOpened');
 
                 // close dialog event listeners
                 $('.dialog.'+templateName+' .close').on('click',function() {that.close(templateName)});
