@@ -75,8 +75,9 @@ define(function(require) {
         this.sendFiles = function() {
 
             var controller = require(router.controllerName);
-            console.log(controller);
-            controller.upload(filePreviews);
+            if('uploadComplete' in controller) {
+                controller.uploadComplete(filePreviews);
+            }
 
             router.makeRequest({
                 type:'post',
