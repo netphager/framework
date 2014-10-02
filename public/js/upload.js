@@ -43,7 +43,7 @@ define(function(require) {
             for(var i = 0 ; i <  files.length; i++) {
                 var file = files[i];
                 var fileName = typeof(file.name) != 'undefined' ? file.name : 'Clipboard'+i;
-                formData.append('files',file);
+                formData.append('attachments',file,file.name);
 
                 if(that.preivewFiles === true) {
                     var reader = new FileReader();
@@ -83,15 +83,13 @@ define(function(require) {
                 processData: false,
                 data: formData
             }, function(response) {
-
-                // clear files from input and form
-                $fileInput[0].val = null;
-                $fileInput[0].files = [];
-                formData  = new FormData();
-                filePreviews = [];
-
                 console.log('uploading complete');
             });
+            // clear files from input and form
+            $fileInput[0].val = null;
+            $fileInput[0].files = [];
+            formData  = new FormData();
+            filePreviews = [];
         };
 
         this.fileApiSupported = function(callback) {
