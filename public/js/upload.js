@@ -1,7 +1,6 @@
 define(function(require) {
     return new (function() {
         var that = this;
-        this.files = [];
         this.dropUpload = true;
         this.pasteUpload = true;
         var router = require('helper/js/router');
@@ -29,7 +28,6 @@ define(function(require) {
                         that.readFiles([items[0].getAsFile()]);
                     }
                 }
-
             });
         };
 
@@ -52,6 +50,7 @@ define(function(require) {
         };
 
         this.readFileComplete = function(file) {
+            // TODO: append file to form
             router.makeRequest({
                 type:'post',
                 url:'/'+router.controllerName+'/upload',
@@ -59,6 +58,10 @@ define(function(require) {
             }, function(response) {
                 console.log('okk');
             });
+        };
+
+        this.sendFiles = function() {
+            // TODO: send form to the server
         };
 
         this.fileApiSupported = function(callback) {
@@ -71,7 +74,5 @@ define(function(require) {
                 console.error('FILE API is not supported');
             }
         };
-
-
     });
 });
