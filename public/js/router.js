@@ -86,8 +86,13 @@ define(['helper/js/templatesHelper'],function(templatesHelper) {
         };
 
         this.makeRequest =  function(req,callback) {
-            req.contentType = "application/json";
-            req.data = JSON.stringify(req.data);
+            if(!('contentType' in req)) {
+                req.contentType = "application/json";
+            }
+           if(typeof(req.data) == 'object' && Object.keys(req.data).length > 0) {
+               req.data = JSON.stringify(req.data);
+           }
+
             if(typeof(callback) == 'function') {
                 req.success = function(response,status) {
                     callback(response);
@@ -109,6 +114,7 @@ define(['helper/js/templatesHelper'],function(templatesHelper) {
                     }
                 };
             }
+
             var promise = $.ajax(req);
             if(typeof(callback) != 'function') {
                 return promise;
