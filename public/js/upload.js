@@ -10,12 +10,12 @@ define(function(require) {
         var formData  = new FormData();
         var filePreviews = [];
 
-
         this.init = function($input,$dropingDiv) {
             $fileInput = $input;
             this.fileApiSupported(function() {
                 // file input change
-                $fileInput.on('change',function() {that.addFilesToForm($fileInput[0].files);});
+
+                $fileInput.on('change',function() {console.log($fileInput[0].files);that.addFilesToForm($fileInput[0].files);});
                 // drop upload listener
                 if(that.dropUpload === true && $dropingDiv) {
                     $dropingDiv[0].addEventListener('dragover', function(e) {
@@ -39,17 +39,14 @@ define(function(require) {
         };
 
         this.addFilesToForm = function(files) {
-            for(var i in files) {
-                var file = files[i];
 
+            for(var i = 0 ; i <  files.length; i++) {
+                var file = files[i];
                 var fileName = typeof(file.name) != 'undefined' ? file.name : 'Clipboard'+i;
-                formData.append('files[]',file,file.name);
+                formData.append('files',file);
 
                 if(that.preivewFiles === true) {
                     var reader = new FileReader();
-                    if(typeof(file) != 'object') {
-                        continue;
-                    }
                     if (file.type.match("image.*")) {
                        reader.readAsDataURL(file);
                     }
@@ -73,11 +70,11 @@ define(function(require) {
         };
 
         this.sendFiles = function() {
-
-            var controller = require(router.controllerName);
-            if('uploadComplete' in controller) {
-                controller.uploadComplete(filePreviews);
-            }
+            // trigger upload complete
+            $(window).trigger({
+                type: 'uploadComplete',
+                filePreviews: filePreviews
+            });
 
             router.makeRequest({
                 type:'post',
