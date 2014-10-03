@@ -15,7 +15,7 @@ define(function(require) {
             this.fileApiSupported(function() {
                 // file input change
 
-                $fileInput.on('change',function() {console.log($fileInput[0].files);that.addFilesToForm($fileInput[0].files);});
+                $fileInput.on('change',function() {that.addFilesToForm($fileInput[0].files);});
                 // drop upload listener
                 if(that.dropUpload === true && $dropingDiv) {
                     $dropingDiv[0].addEventListener('dragover', function(e) {
@@ -82,8 +82,6 @@ define(function(require) {
                 contentType: false,
                 processData: false,
                 data: formData
-            }, function(response) {
-                console.log('uploading complete');
             });
             // clear files from input and form
             $fileInput[0].val = null;

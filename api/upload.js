@@ -3,7 +3,7 @@ module.exports = new (function() {
     var EventEmitter = require(config.libDir+"/lib/emitter").getInstance();
 
     this.upload = function(req,res) {
-        EventEmitter.emit('uploadComplete',req.files.attachments);
+        EventEmitter.emit('saveAttachments',req.files.attachments);
 
         res.send({"success": true});
     }
