@@ -3,7 +3,7 @@ define(function(require) {
         var that = this;
         this.dropUpload = true;
         this.pasteUpload = true;
-        this.preivewFiles = true;
+        this.preivewFiles = false;
 
         var router = require('helper/js/router');
         var $fileInput;
