@@ -55,15 +55,15 @@ define(['helper/js/templatesHelper'],function(templatesHelper) {
                 ,values = [];
 
             if(paramsArray.length > 0 && paramsArray.length % 2 == 0) {
-                for(var i in paramsArray) {
+                for(var i=0;i < paramsArray.length;i++) {
                     if(i % 2 == 0) {
-                        properties.push(paramsArray[i])
+                        properties.push(paramsArray[i]);
                     } else {
                         values.push(paramsArray[i]);
                     }
                 }
                 // pushing properties and values into params
-                for(var i in properties) {
+                for(var i=0;i < properties.length;i++) {
                     if(properties[i].length > 0 && values[i].length > 0) {
                         params[properties[i]] = typeof(values[i]) != 'undefined' ? values[i]  : null;
                     }
