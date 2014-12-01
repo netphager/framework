@@ -121,5 +121,5 @@ define(['helper/js/templatesHelper'],function(templatesHelper) {
                 return promise;
             }
         };
-    })
+    });
 });
