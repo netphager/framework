@@ -26,7 +26,8 @@ define(['helper/js/templatesHelper'],function(templatesHelper) {
 
                 // loading controller
                 require([controllerName],function(controller) {
-                   if(controller.noTemplate.indexOf(method) == -1) {
+                   // check for templates support in loaded template
+                   if(!('noTemplate' in controller) || controller.noTemplate.indexOf(method) == -1) {
                         var templatesPath = that.config.templatesDir;
                         if(templatesPath.indexOf('controller') != -1) {
                             templatesPath = that.config.templatesDir.replace('{controller}',controllerName);

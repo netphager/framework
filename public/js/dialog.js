@@ -46,7 +46,6 @@ define(function(require) {
                     $('.dialog.'+templateName).on('mouseup',function() {that.stopDrag(templateName)});
                 }
             });
-
         };
 
         this.startDrag = function(dialogName) {
