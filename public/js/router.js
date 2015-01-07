@@ -1,4 +1,4 @@
-define(['helper/js/templatesHelper'],function(templatesHelper) {
+define(['helper/js/template'],function(template) {
     return new (function() {
         var that = this;
         this.controllerName = null;
@@ -19,9 +19,9 @@ define(['helper/js/templatesHelper'],function(templatesHelper) {
                     , method = hashArray[1]
                     , params = that.parseGetParamteres(hashArray);
 
-                var template = method;
+                var templateName = method;
                 that.controllerName = controllerName;
-                that.templateName = template;
+                that.templateName = templateName;
                 that.method = method;
 
                 // loading controller
@@ -32,9 +32,9 @@ define(['helper/js/templatesHelper'],function(templatesHelper) {
                         if(templatesPath.indexOf('controller') != -1) {
                             templatesPath = that.config.templatesDir.replace('{controller}',controllerName);
                         }
-                        templatesHelper.loadTemplate(that.templateName,templatesPath, function() {
+                        template.loadTemplate(that.templateName,templatesPath, function() {
                             // execute method
-                            controller[method](params,template);
+                            controller[method](params,templateName);
                         });
 
                    } else {
@@ -42,10 +42,7 @@ define(['helper/js/templatesHelper'],function(templatesHelper) {
                    }
                 });
             }
-            window.addEventListener("hashchange", function(e) {
-                executeMethod();
-            }, false);
-
+            window.addEventListener("hashchange", executeMethod);
         };
 
         this.parseGetParamteres = function(hashArray) {

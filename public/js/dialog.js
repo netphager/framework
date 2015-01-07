@@ -2,7 +2,7 @@ define(function(require) {
     return new (function() {
         var that = this;
         var router = require('helper/js/router');
-        var templatesHelper = require('helper/js/templatesHelper');
+        var template = require('helper/js/template');
         this.draggable = false;
         // var Draggable = require ('helper/node_modules/draggable/src/draggable');
 
@@ -10,8 +10,8 @@ define(function(require) {
         this.init = function() {};
 
         this.checkBaseTemplateLoaded = function(callback) {
-            if(!('dialog' in templatesHelper.templates)) {
-                templatesHelper.loadTemplate('dialog','/helper/templates/',function() {
+            if(!('dialog' in template.templates)) {
+                template.loadTemplate('dialog','/helper/templates/',function() {
                     if(typeof(callback) == 'function') {
                         callback();
                     }
@@ -22,14 +22,14 @@ define(function(require) {
                 }
             }
 
-        }
+        };
 
         // open dialog
         this.open = function(templateName,params) {
             that.checkBaseTemplateLoaded(function() {
                 // render dialog template
-                $('[dialog-template]').after(templatesHelper.render('dialog').replace('class="dialog"','class="dialog '+templateName+'"'));
-                $('.dialog.'+templateName+' .content').html(templatesHelper.render(templateName,params));
+                $('[dialog-template]').after(template.render('dialog').replace('class="dialog"','class="dialog '+templateName+'"'));
+                $('.dialog.'+templateName+' .content').html(template.render(templateName,params));
                 $('.dialog.'+templateName).trigger('dialogOpened');
 
                 // close dialog event listeners
